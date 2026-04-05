@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Baby Registry</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Baby Registry</h1>
+    <p class="tagline">Pick something you'd like to gift. Once you claim it, others won't see it anymore.</p>
+    <label class="filter">
+      Category:
+      <select id="category-filter"><option value="">All</option></select>
+    </label>
+  </header>
+
+  <main id="grid" aria-live="polite"></main>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <template id="card-template">
+    <article class="card">
+      <div class="card-img"><img alt="" loading="lazy"></div>
+      <div class="card-body">
+        <h3 class="card-name"></h3>
+        <p class="card-desc"></p>
+        <p class="card-price"></p>
+        <div class="card-actions">
+          <a class="card-link" target="_blank" rel="noopener">View product</a>
+          <button class="card-claim" type="button">I'll get this</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="config.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
