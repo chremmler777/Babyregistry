@@ -42,7 +42,7 @@ language plpgsql
 security definer
 as $$
 begin
-  if current_setting('request.jwt.claim.role', true) = 'anon' then
+  if (select auth.role()) = 'anon' then
     if new.name        is distinct from old.name
     or new.description is distinct from old.description
     or new.link        is distinct from old.link
