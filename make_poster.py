@@ -125,6 +125,24 @@ qr_img = qr.make_image(
 # Size QR to ~720px wide, paste centered
 QR_SIZE = 720
 qr_img = qr_img.resize((QR_SIZE, QR_SIZE), Image.LANCZOS)
+
+# Overlay a heart in the center of the QR (ERROR_CORRECT_H tolerates ~30% obscured)
+qd = ImageDraw.Draw(qr_img)
+cx, cy = QR_SIZE // 2, QR_SIZE // 2
+# Cream disc backing so the heart reads clearly against QR modules
+disc_r = 78
+qd.ellipse([cx - disc_r, cy - disc_r, cx + disc_r, cy + disc_r], fill=CREAM, outline=GOLD, width=3)
+# Heart shape via parametric curve — x = 16 sin³t, y = 13 cost − 5 cos2t − 2 cos3t − cos4t
+heart_scale = 4.2
+heart_pts = []
+steps = 200
+for i in range(steps + 1):
+    t = (i / steps) * 2 * math.pi
+    x = 16 * math.sin(t) ** 3
+    y = -(13 * math.cos(t) - 5 * math.cos(2 * t) - 2 * math.cos(3 * t) - math.cos(4 * t))
+    heart_pts.append((cx + x * heart_scale, cy + y * heart_scale))
+qd.polygon(heart_pts, fill=ROSE, outline=DEEP_ROSE)
+
 qr_x = (W - QR_SIZE) // 2
 qr_y = 740
 # Soft shadow behind QR
